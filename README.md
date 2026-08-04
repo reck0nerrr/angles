@@ -1,24 +1,46 @@
 # Angles
 
-A full-stack music library built with:
-
-- Spring Boot
-- Spring Data JPA
-- PostgreSQL
-- React
-- Docker
+A full-stack music library inspired by RateYourMusic, built with Spring Boot and React.
 
 ## Features
 
-- Album and track management
 - User registration
+- Album catalog
+- Track management
 - REST API
 - React frontend
+- PostgreSQL persistence
 
 ## Tech Stack
 
+### Backend
 - Java 21
-- Spring Boot 4.1.0
+- Spring Boot
+- Spring Data JPA
 - PostgreSQL
+- Maven
+
+### Frontend
 - React
 - Vite
+- JavaScript
+
+## Project Structure
+
+```
+angles/
+├── demo-backend/
+└── demo-frontend/
+```
+
+## Roadmap
+
+- [x] REST API
+- [x] React frontend
+- [x] DTO mapping
+- [ ] Validation
+- [ ] Pagination
+- [ ] Custom queries
+- [ ] Spring Security authentication
+- [ ] Flyway migrations
+- [ ] Deployment
