@@ -1,41 +1,62 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAlbums } from './api/albumApi';
-import { fetchUsers } from './api/userApi'; // 1. Import new user API
+import { fetchAlbums, searchAlbums } from './api/albumApi'; // Imported searchAlbums
+import { fetchUsers } from './api/userApi';
 import AlbumList from './components/AlbumList';
 import TrackList from './components/TrackList';
-import UserList from './components/UserList'; // 2. Import UserList component
+import UserList from './components/UserList';
 import './App.css';
 
 const App = () => {
   const [albums, setAlbums] = useState([]);
-  const [users, setUsers] = useState([]); // 3. State for users
+  const [users, setUsers] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [search, setSearch] = useState(''); // 1. Search state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Initial load: Fetch users once when component mounts
   useEffect(() => {
-    const loadDashboardData = async () => {
+    const loadUsers = async () => {
       try {
-        setLoading(true);
-        setError(null);
-        
-        // Fetch albums and users concurrently
-        const [albumsData, usersData] = await Promise.all([
-          fetchAlbums(),
-          fetchUsers()
-        ]);
-
-        setAlbums(albumsData);
+        const usersData = await fetchUsers();
         setUsers(usersData);
       } catch (err) {
-        setError(err.message || 'An unexpected error occurred.');
+        console.error('Failed to load users:', err);
+      }
+    };
+
+    loadUsers();
+  }, []);
+
+  // Effect to handle album fetching and search query changes
+  useEffect(() => {
+    const getAlbums = async () => {
+      try {
+        setError(null);
+        let data;
+        
+        // If search term is present, hit search endpoint; otherwise fetch all
+        if (search.trim()) {
+          data = await searchAlbums(search);
+        } else {
+          data = await fetchAlbums();
+        }
+        
+        setAlbums(data);
+      } catch (err) {
+        setError(err.message || 'Failed to retrieve albums');
       } finally {
         setLoading(false);
       }
     };
 
-    loadDashboardData();
-  }, []);
+    // Debounce to avoid firing API requests on every single keystroke
+    const timer = setTimeout(() => {
+      getAlbums();
+    }, 300);
+
+    return () => clearTimeout(timer); // Clean up timer if user types fast
+  }, [search]);
 
   const handleSelectAlbum = (album) => {
     if (selectedAlbum?.id === album.id) {
@@ -63,13 +84,23 @@ const App = () => {
 
         {!loading && !error && (
           <div className="content-layout">
-            {/* 4. Users section rendered above Albums */}
             <section className="users-section">
               <UserList users={users} />
             </section>
 
             <section className="albums-section">
-              <h2>Albums</h2>
+              <div className="section-header">
+                <h2>Albums</h2>
+                {/* 2. Search Input */}
+                <input
+                  type="text"
+                  className="search-input"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search albums..."
+                />
+              </div>
+
               <AlbumList
                 albums={albums}
                 selectedAlbumId={selectedAlbum?.id}

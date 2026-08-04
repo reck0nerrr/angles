@@ -16,6 +16,8 @@ public class AlbumService {
     public Optional<Album> findById(int id){
         return repository.findById(id);
     }
-    
+    public List<Album> search(String query){
+        return repository.search(query);
+    }
 
 }
