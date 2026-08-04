@@ -1,0 +1,49 @@
+services:
+
+  db:
+
+    container_name: postgres-angles
+
+    image: postgres:17
+
+    environment:
+
+      POSTGRES_USER: postgres
+
+      POSTGRES_PASSWORD: "190111"
+
+      POSTGRES_DB: library
+
+    volumes:
+
+      - db:/var/lib/postgresql/data
+
+    ports:
+
+        # Optional: make exposed port "5332:5432
+
+        - "5433:5432"
+
+    networks:
+
+      - db
+
+    restart: unless-stopped
+
+
+
+# If you have more than one container and want them to communicate through
+
+# same network
+
+networks:
+
+  db:
+
+      driver: bridge
+
+
+
+volumes:
+
+  db:

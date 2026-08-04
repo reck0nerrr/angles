@@ -1,0 +1,251 @@
+/* Dark Theme Palette */
+:root {
+  --bg-primary: #121212;        /* Main application background */
+  --card-bg: #1e1e1e;           /* Card and panel background */
+  --card-hover: #2a2a2a;        /* Card background on hover */
+  --text-main: #e0e0e0;         /* Primary text */
+  --text-muted: #a0a0a0;        /* Secondary/subtle text */
+  --border-color: #333333;      /* Subtle dividers and borders */
+  --accent-color: #3b82f6;      /* Vibrant blue for active elements */
+  --accent-hover: #60a5fa;      /* Lighter blue for hover states */
+  --badge-bg: #1e293b;          /* Dark blue tint for genre badges */
+  --badge-text: #93c5fd;        /* Light blue text for genre badges */
+  --star-color: #fbbf24;        /* Golden yellow for ratings */
+  --error-color: #f87171;       /* Soft red for error states */
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.app-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  margin: 0;
+  color: #ffffff;
+}
+
+.content-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Album Grid */
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Album Cards */
+.album-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.album-card:hover {
+  transform: translateY(-2px);
+  background-color: var(--card-hover);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.album-card.selected {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+
+.album-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.album-title {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.album-rating {
+  font-weight: bold;
+  color: var(--star-color);
+}
+
+.album-artist {
+  margin: 0 0 12px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.album-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.badge {
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(147, 197, 253, 0.2);
+}
+
+.album-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.album-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.view-tracks-btn {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.view-tracks-btn:hover {
+  color: var(--accent-hover);
+}
+
+/* Track List Section */
+.track-list-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.track-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.track-list-header h2 {
+  margin: 0 0 4px 0;
+  color: #ffffff;
+}
+
+.subheading {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.close-btn:hover {
+  color: #ffffff;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.track-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.track-table th, 
+.track-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.track-table th {
+  background-color: rgba(255, 255, 255, 0.03);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.track-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.track-name {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* Status Messages & Errors */
+.status-message {
+  text-align: center;
+  padding: 48px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.error-message {
+  color: var(--error-color);
+}
+
+.error-message button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-message button:hover {
+  background-color: var(--accent-hover);
+}
+
+.empty-message {
+  color: var(--text-muted);
+  font-style: italic;
+}
