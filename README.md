@@ -1,5 +1,5 @@
 # Angles
-demo
+
 A full-stack music library built with:
 
 - Spring Boot
