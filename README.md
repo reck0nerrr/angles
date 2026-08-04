@@ -18,7 +18,7 @@ A full-stack music library built with:
 ## Tech Stack
 
 - Java 21
-- Spring Boot
+- Spring Boot 4.1.0
 - PostgreSQL
 - React
 - Vite
