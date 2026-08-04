@@ -33,7 +33,7 @@ A full-stack music library inspired by RateYourMusic, built with Spring Boot and
 - [x] Basic search (@Query)
 - [ ] Advanced queries (sorting, filtering)
 - [ ] Validation
-- [ ] Pagination
+- [x] Pagination
 - [ ] Spring Security authentication
 - [ ] Flyway migrations
 - [ ] Deployment
