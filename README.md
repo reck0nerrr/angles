@@ -25,14 +25,6 @@ A full-stack music library inspired by RateYourMusic, built with Spring Boot and
 - Vite
 - JavaScript
 
-## Project Structure
-
-```
-angles/
-├── demo-backend/
-└── demo-frontend/
-```
-
 ## Roadmap
 
 - [x] REST API
