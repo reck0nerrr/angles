@@ -30,9 +30,10 @@ A full-stack music library inspired by RateYourMusic, built with Spring Boot and
 - [x] REST API
 - [x] React frontend
 - [x] DTO mapping
+- [x] Basic search (@Query)
+- [ ] Advanced queries (sorting, filtering)
 - [ ] Validation
 - [ ] Pagination
-- [ ] Custom queries
 - [ ] Spring Security authentication
 - [ ] Flyway migrations
 - [ ] Deployment
