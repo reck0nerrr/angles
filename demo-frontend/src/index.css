@@ -116,23 +116,3 @@ code {
   margin-bottom: 16px;
 }
 
-.search-input {
-  background-color: var(--card-bg);
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 8px 14px;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  width: 240px;
-}
-
-.search-input:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-}
-
-.search-input::placeholder {
-  color: var(--text-muted);
-}

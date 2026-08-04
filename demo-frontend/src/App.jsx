@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchAlbums, searchAlbums } from './api/albumApi'; // Imported searchAlbums
+import { fetchAlbums, searchAlbums } from './api/albumApi';
 import { fetchUsers } from './api/userApi';
 import AlbumList from './components/AlbumList';
 import TrackList from './components/TrackList';
@@ -10,11 +10,16 @@ const App = () => {
   const [albums, setAlbums] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
-  const [search, setSearch] = useState(''); // 1. Search state
+  const [search, setSearch] = useState('');
+  
+  // Состояния для пагинации
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Initial load: Fetch users once when component mounts
+  // Загрузка пользователей
   useEffect(() => {
     const loadUsers = async () => {
       try {
@@ -28,21 +33,29 @@ const App = () => {
     loadUsers();
   }, []);
 
-  // Effect to handle album fetching and search query changes
+  // Сброс страницы на 0 при изменении поискового запроса
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+    setPage(0);
+  };
+
+  // Загрузка альбомов при изменении search или page
   useEffect(() => {
     const getAlbums = async () => {
       try {
         setError(null);
         let data;
-        
-        // If search term is present, hit search endpoint; otherwise fetch all
+
         if (search.trim()) {
-          data = await searchAlbums(search);
+          data = await searchAlbums(search, page, 10);
         } else {
-          data = await fetchAlbums();
+          data = await fetchAlbums(page, 10);
         }
-        
-        setAlbums(data);
+
+        // Берем массив альбомов из поля content
+        setAlbums(data.content || []);
+        // Сохраняем общее количество страниц
+        setTotalPages(data.totalPages || 0);
       } catch (err) {
         setError(err.message || 'Failed to retrieve albums');
       } finally {
@@ -50,13 +63,12 @@ const App = () => {
       }
     };
 
-    // Debounce to avoid firing API requests on every single keystroke
     const timer = setTimeout(() => {
       getAlbums();
     }, 300);
 
-    return () => clearTimeout(timer); // Clean up timer if user types fast
-  }, [search]);
+    return () => clearTimeout(timer);
+  }, [search, page]);
 
   const handleSelectAlbum = (album) => {
     if (selectedAlbum?.id === album.id) {
@@ -74,7 +86,7 @@ const App = () => {
 
       <main className="app-main">
         {loading && <div className="status-message">Loading dashboard...</div>}
-        
+
         {error && (
           <div className="status-message error-message">
             <p>Error: {error}</p>
@@ -91,12 +103,11 @@ const App = () => {
             <section className="albums-section">
               <div className="section-header">
                 <h2>Albums</h2>
-                {/* 2. Search Input */}
                 <input
                   type="text"
                   className="search-input"
                   value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={handleSearchChange}
                   placeholder="Search albums..."
                 />
               </div>
@@ -106,6 +117,31 @@ const App = () => {
                 selectedAlbumId={selectedAlbum?.id}
                 onSelectAlbum={handleSelectAlbum}
               />
+
+              {/* Элементы управления пагинацией */}
+              {totalPages > 0 && (
+                <div className="pagination">
+                  <button
+                    className="pagination-btn"
+                    onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+                    disabled={page === 0}
+                  >
+                    Previous
+                  </button>
+
+                  <span className="pagination-info">
+                    Page {page + 1} of {totalPages}
+                  </span>
+
+                  <button
+                    className="pagination-btn"
+                    onClick={() => setPage((prev) => prev + 1)}
+                    disabled={page >= totalPages - 1}
+                  >
+                    Next
+                  </button>
+                </div>
+              )}
             </section>
 
             {selectedAlbum && (

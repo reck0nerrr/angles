@@ -1,1 +1,1 @@
-GET http://localhost:8080/albums/search?query=isolation
+GET http://localhost:8080/albums?page=0&size=5
