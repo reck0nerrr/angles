@@ -32,7 +32,7 @@ A full-stack music library inspired by RateYourMusic, built with Spring Boot and
 - [x] DTO mapping
 - [x] Basic search (@Query)
 - [ ] Advanced queries (sorting, filtering)
-- [ ] Validation
+- [x] Validation
 - [x] Pagination
 - [ ] Spring Security authentication
 - [ ] Flyway migrations
