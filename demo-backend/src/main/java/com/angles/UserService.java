@@ -21,11 +21,17 @@ public class UserService {
             .map(userDTOMapper)
             .toList();
     }
-    public User register(User user) {
+    public UserDTO register(RegisterRequest request) {
+        System.out.println(request.password());
+        User user=new User();
+        user.setEmail(request.email());
+        user.setUsername(request.username());
+        user.setPasswordHash(
+            passwordEncoder.encode(request.password())
+        );
 
-        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
-
-        return repository.save(user);
+        User saved = repository.save(user);
+        return userDTOMapper.apply(saved);
     }
 
 }

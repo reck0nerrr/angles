@@ -1,1 +1,8 @@
-GET http://localhost:8080/albums?page=0&size=5
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "email": "@gmail.com",
+  "username":"folk",
+  "password": "our fingers dancing as they meet"
+}

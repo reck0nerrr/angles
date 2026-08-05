@@ -22,7 +22,7 @@ public class AlbumController {
         return service.findAll(pageable);
     }
     @GetMapping("/search")
-    public List<Album> search(@RequestParam String query){
-        return service.search(query);
+    public Page<Album> search(@RequestParam String query,Pageable pageable){
+        return service.search(query,pageable);
     }
 }
