@@ -1,4 +1,4 @@
-package com.angles;
+package com.angles.user;
 
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;

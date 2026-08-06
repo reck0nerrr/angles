@@ -1,5 +1,6 @@
-package com.angles;
+package com.angles.track;
 
+import com.angles.album.Album;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;

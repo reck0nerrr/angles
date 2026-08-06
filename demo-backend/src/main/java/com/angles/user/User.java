@@ -1,17 +1,25 @@
-package com.angles;
+package com.angles.user;
 
 import java.time.Instant;
+import java.util.Collection;
+import java.util.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name = "users")
-public class User{
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +35,8 @@ public class User{
     private String passwordHash;
     @Column(name = "created_at", insertable = false, updatable = false)
     private Instant createdAt;
+    @Enumerated(EnumType.STRING)
+    private com.angles.user.Role role;
     public User() {
     }
 
@@ -67,4 +77,32 @@ public class User{
     public Instant getCreatedAt(){
         return createdAt;
     }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // true = учетная запись не просрочена
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // true = учетная запись не заблокирована
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // true = пароль/токен пользователя действителен
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // true = учетная запись активна
+    }
+    @Override
+    public String getPassword(){
+        return passwordHash;
+    }
+
 }

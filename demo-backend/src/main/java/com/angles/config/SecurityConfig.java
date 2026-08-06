@@ -1,4 +1,4 @@
-package com.angles;
+package com.angles.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

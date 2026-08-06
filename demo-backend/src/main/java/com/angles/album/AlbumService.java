@@ -1,4 +1,4 @@
-package com.angles;
+package com.angles.album;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

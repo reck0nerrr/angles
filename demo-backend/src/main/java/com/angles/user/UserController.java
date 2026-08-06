@@ -1,4 +1,4 @@
-package com.angles;
+package com.angles.user;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;

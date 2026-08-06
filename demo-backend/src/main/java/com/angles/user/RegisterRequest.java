@@ -1,4 +1,4 @@
-package com.angles;
+package com.angles.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
