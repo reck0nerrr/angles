@@ -15,8 +15,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
-
+@Builder
 @Entity
 @Table(name = "users")
 public class User implements UserDetails{
@@ -50,7 +51,7 @@ public class User implements UserDetails{
     public int getId(){
         return id;
     }
-
+    @Override
     public String getUsername(){
         return username;
     }
