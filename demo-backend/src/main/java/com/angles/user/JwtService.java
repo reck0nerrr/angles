@@ -18,7 +18,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
-    public static final String SECRET_KEY="61e123ae9ec69896e7ab56ffc1d0ed18";
+    public static final String SECRET_KEY="Emn9UEIs3lXHXu6nxaSqvuU0cP1fCMR3mwSM8F9hFlw=";
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }

@@ -26,7 +26,7 @@ public class SecurityConfig {
         http
             .csrf((csrf) -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                                            .requestMatchers("")
+                                            .requestMatchers("/auth/**")
                                             .permitAll()
                                             .anyRequest()
                                             .authenticated()
@@ -37,10 +37,6 @@ public class SecurityConfig {
             .authenticationProvider(AuthenticationProvider)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
     @Bean
     public String testBean() {

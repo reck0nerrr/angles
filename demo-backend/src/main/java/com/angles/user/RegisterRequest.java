@@ -1,5 +1,7 @@
 package com.angles.user;
 
+import org.springframework.context.annotation.Role;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

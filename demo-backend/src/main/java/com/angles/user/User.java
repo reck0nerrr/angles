@@ -1,7 +1,6 @@
 package com.angles.user;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,10 +15,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-@Builder
+
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class User implements UserDetails{
 
     @Id
@@ -38,13 +39,18 @@ public class User implements UserDetails{
     private Instant createdAt;
     @Enumerated(EnumType.STRING)
     private com.angles.user.Role role;
-    public User() {
-    }
 
-    public User(String username, String email, String passwordHash) {
+    @Builder
+    public User(
+        String username,
+        String email,
+        String passwordHash,
+        Role role
+    ) {
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
+        this.role = role;
     }
 
 
@@ -53,7 +59,7 @@ public class User implements UserDetails{
     }
     @Override
     public String getUsername(){
-        return username;
+        return email;
     }
 
     public void setUsername(String username){
