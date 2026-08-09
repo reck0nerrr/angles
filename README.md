@@ -1,4 +1,4 @@
-# Angles
+﻿# Angles
 
 A full-stack music library inspired by RateYourMusic, built with Spring Boot and React.
 
@@ -34,6 +34,6 @@ A full-stack music library inspired by RateYourMusic, built with Spring Boot and
 - [ ] Advanced queries (sorting, filtering)
 - [x] Validation
 - [x] Pagination
-- [ ] Spring Security authentication
+- [x] Spring Security authentication
 - [ ] Flyway migrations
 - [ ] Deployment

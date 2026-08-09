@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,8 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
-    public static final String SECRET_KEY="Emn9UEIs3lXHXu6nxaSqvuU0cP1fCMR3mwSM8F9hFlw=";
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }

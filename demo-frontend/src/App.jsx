@@ -1,26 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import HomePage from './pages/HomePage';
-import { isAuthenticated, removeToken, loginUser } from './api/authApi';
+import { isAuthenticated, removeToken, loginUser, registerUser } from './api/authApi';
 import './App.css';
 
 const App = () => {
   const [authed, setAuthed] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
   const [authError, setAuthError] = useState(null);
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [authSuccess, setAuthSuccess] = useState(null);
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    username: '',
+    password: '',
+  });
 
   useEffect(() => {
     setAuthed(isAuthenticated());
   }, []);
 
-  const handleLogin = async (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setAuthError(null);
+    setAuthSuccess(null);
+
     try {
-      await loginUser(credentials);
-      setAuthed(true);
+      if (isRegistering) {
+        // Отправка { email, username, password }
+        await registerUser(formData);
+        
+        if (isAuthenticated()) {
+          setAuthed(true);
+        } else {
+          setAuthSuccess('Регистрация прошла успешно! Теперь войдите в аккаунт.');
+          setIsRegistering(false);
+          setFormData({ email: formData.email, username: '', password: '' });
+        }
+      } else {
+        // Запрос на вход
+        await loginUser({
+          email: formData.email,
+          password: formData.password,
+        });
+        setAuthed(true);
+      }
     } catch (err) {
-      setAuthError(err.message || 'Ошибка авторизации');
+      setAuthError(err.message || 'Произошла ошибка');
     }
+  };
+
+  const toggleMode = () => {
+    setIsRegistering(!isRegistering);
+    setAuthError(null);
+    setAuthSuccess(null);
   };
 
   const handleLogout = () => {
@@ -28,41 +64,77 @@ const App = () => {
     setAuthed(false);
   };
 
-  // Если пользователь не авторизован (нет JWT в localStorage)
   if (!authed) {
     return (
       <div className="auth-container">
         <div className="auth-card">
-          <h2>🎵 Вход в Angles</h2>
-          <p className="subheading">Авторизуйтесь для доступа к библиотеке</p>
+          <h2>🎵 {isRegistering ? 'Регистрация в Angles' : 'Вход в Angles'}</h2>
+          <p className="subheading">
+            {isRegistering 
+              ? 'Создайте аккаунт для доступа к библиотеке' 
+              : 'Авторизуйтесь для доступа к библиотеке'}
+          </p>
           
           {authError && <div className="auth-error">{authError}</div>}
+          {authSuccess && <div className="auth-success">{authSuccess}</div>}
 
-          <form onSubmit={handleLogin} className="auth-form">
+          <form onSubmit={handleSubmit} className="auth-form">
             <input
-              type="text"
-              placeholder="Почта"
-              value={credentials.email}
-              onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
               required
             />
+
+            {isRegistering && (
+              <input
+                type="text"
+                name="username"
+                placeholder="Имя пользователя"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            )}
+
             <input
               type="password"
+              name="password"
               placeholder="Пароль"
-              value={credentials.password}
-              onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+              value={formData.password}
+              onChange={handleChange}
               required
             />
+
             <button type="submit" className="auth-submit-btn">
-              Войти
+              {isRegistering ? 'Зарегистрироваться' : 'Войти'}
             </button>
           </form>
+
+          <div className="auth-toggle">
+            {isRegistering ? (
+              <p>
+                Уже есть аккаунт?{' '}
+                <button type="button" className="toggle-btn" onClick={toggleMode}>
+                  Войти
+                </button>
+              </p>
+            ) : (
+              <p>
+                Ещё нет аккаунта?{' '}
+                <button type="button" className="toggle-btn" onClick={toggleMode}>
+                  Зарегистрироваться
+                </button>
+              </p>
+            )}
+          </div>
         </div>
       </div>
     );
   }
 
-  // Если пользователь авторизован — отображаем главную страницу
   return <HomePage onLogout={handleLogout} />;
 };
 

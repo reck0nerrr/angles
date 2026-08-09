@@ -9,7 +9,7 @@ export const loginUser = async (credentials) => {
   });
 
   if (!response.ok) {
-    throw new Error('Неверное имя пользователя или пароль');
+    throw new Error('Неверные данные для входа');
   }
 
   const data = await response.json();
@@ -19,19 +19,24 @@ export const loginUser = async (credentials) => {
   return data;
 };
 
-// Регистрация
-export const registerUser = async (userData) => {
+// Регистрация пользователя (JSON payload: { email, username, password })
+export const registerUser = async ({ email, username, password }) => {
   const response = await fetch(`${BASE_URL}/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(userData),
+    body: JSON.stringify({ email, username, password }),
   });
 
   if (!response.ok) {
-    throw new Error('Ошибка при регистрации');
+    throw new Error('Ошибка при регистрации. Возможно, email или имя пользователя уже заняты.');
   }
 
-  return await response.json();
+  const data = await response.json();
+  
+  if (data && data.token) {
+    localStorage.setItem('token', data.token);
+  }
+  return data;
 };
 
 // Вспомогательные функции для токена

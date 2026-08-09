@@ -24,10 +24,5 @@ public class UserController {
     public List<UserDTO> getUsers(){
         return service.findUsers();
     }
-    @PostMapping("/register")
-    public UserDTO register(@Valid @RequestBody RegisterRequest request) {
-
-        return service.register(request);
-    }
     
 }

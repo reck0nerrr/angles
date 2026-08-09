@@ -8,9 +8,9 @@ services:
 
     environment:
 
-      POSTGRES_USER: postgres
+      POSTGRES_USER: ${DB_USERNAME}
 
-      POSTGRES_PASSWORD: "190111"
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
 
       POSTGRES_DB: library
 

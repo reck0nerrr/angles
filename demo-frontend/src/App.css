@@ -531,3 +531,36 @@ body {
     font-size: 1.5rem;
   }
 }
+/* Auth Form Toggle & Success States */
+.auth-toggle {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+  text-decoration: underline;
+}
+
+.toggle-btn:hover {
+  color: var(--accent-hover);
+}
+
+.auth-success {
+  color: #4ade80;
+  background-color: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-top: 12px;
+  text-align: center;
+}
