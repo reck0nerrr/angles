@@ -1,9 +1,11 @@
 import React from 'react';
+import RatingInput from './RatingInput';
+import StarRating from './StarRating';
 
 const TrackList = ({ album, onClose }) => {
   if (!album) return null;
 
-  const { albumName, artist, tracks } = album;
+  const { id: albumId, albumName, artist, tracks } = album;
 
   return (
     <div className="track-list-container">
@@ -15,6 +17,11 @@ const TrackList = ({ album, onClose }) => {
         <button className="close-btn" onClick={onClose} aria-label="Close track list">
           &times;
         </button>
+      </div>
+
+      <div className="album-rating-section">
+        <h4>Rate this album</h4>
+        <RatingInput albumId={albumId} />
       </div>
 
       {!tracks || tracks.length === 0 ? (
@@ -29,6 +36,7 @@ const TrackList = ({ album, onClose }) => {
                 <th>Genre</th>
                 <th>Duration</th>
                 <th>Rating</th>
+                <th>Your Rating</th>
               </tr>
             </thead>
             <tbody>
@@ -39,6 +47,7 @@ const TrackList = ({ album, onClose }) => {
                   <td><span className="badge">{track.genre}</span></td>
                   <td>{track.duration}</td>
                   <td>★ {track.rate}</td>
+                  <td><StarRating trackId={track.id} /></td>
                 </tr>
               ))}
             </tbody>

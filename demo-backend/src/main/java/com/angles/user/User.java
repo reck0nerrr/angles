@@ -2,6 +2,10 @@ package com.angles.user;
 
 import java.time.Instant;
 import java.util.*;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +40,7 @@ public class User implements UserDetails{
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
     @Column(name = "created_at", insertable = false, updatable = false)
+    @Generated(event = EventType.INSERT)
     private Instant createdAt;
     @Enumerated(EnumType.STRING)
     private com.angles.user.Role role;
@@ -64,6 +69,9 @@ public class User implements UserDetails{
 
     public void setUsername(String username){
         this.username = username;
+    }
+    public String getDisplayUsername(){
+        return username;
     }
 
     public String getEmail(){

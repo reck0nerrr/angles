@@ -15,17 +15,17 @@ const Navbar = ({ search, onSearchChange, onLogout, username = 'User' }) => {
           className="navbar-search-input"
           value={search}
           onChange={onSearchChange}
-          placeholder="Поиск альбомов или исполнителей..."
+          placeholder="Search"
         />
       </div>
 
       <div className="navbar-actions">
-        <div className="user-profile-btn" title="Профиль пользователя">
+        <div className="user-profile-btn" title="Profile">
           <span className="user-avatar">👤</span>
           <span className="username">{username}</span>
         </div>
-        <button className="logout-btn" onClick={onLogout} title="Выйти из системы">
-          Выйти
+        <button className="logout-btn" onClick={onLogout} title="Quit">
+          Quit
         </button>
       </div>
     </header>

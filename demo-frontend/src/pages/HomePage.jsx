@@ -39,7 +39,7 @@ const HomePage = ({ onLogout }) => {
         setTotalPages(data.totalPages || 0);
         setTotalElements(data.totalElements || 0);
       } catch (err) {
-        setError(err.message || 'Не удалось загрузить альбомы');
+        setError(err.message || 'Couldnt get albums');
       } finally {
         setLoading(false);
       }
@@ -73,26 +73,26 @@ const HomePage = ({ onLogout }) => {
 
         <section className="catalog-section">
           <div className="section-title-row">
-            <h2>{search.trim() ? `Результаты поиска: "${search}"` : 'Каталог альбомов'}</h2>
+            <h2>{search.trim() ? `Query results: "${search}"` : 'Album catalog'}</h2>
           </div>
 
-          {loading && <div className="status-message">Загрузка музыкальной библиотеки...</div>}
+          {loading && <div className="status-message">Loading...</div>}
 
           {error && (
             <div className="status-message error-message">
               <p>Ошибка: {error}</p>
-              <button onClick={() => window.location.reload()}>Повторить</button>
+              <button onClick={() => window.location.reload()}>Retry</button>
             </div>
           )}
 
           {!loading && !error && albums.length === 0 && (
             <div className="empty-search-container">
               <span className="empty-icon">💿</span>
-              <h3>Альбомы не найдены</h3>
-              <p>По запросу «{search}» ничего не найдено. Попробуйте изменить критерии поиска.</p>
+              <h3>Not found</h3>
+              <p>Couldnt find anything by «{search}» query.</p>
               {search && (
                 <button className="clear-search-btn" onClick={() => setSearch('')}>
-                  Сбросить поиск
+                  Reset
                 </button>
               )}
             </div>

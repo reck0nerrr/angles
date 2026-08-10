@@ -71,9 +71,4 @@ public CorsConfigurationSource corsConfigurationSource() {
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-    @Bean
-    public String testBean() {
-        System.out.println("SecurityConfig loaded");
-        return "ok";
-    }
 }

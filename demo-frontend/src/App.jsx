@@ -36,7 +36,7 @@ const App = () => {
         if (isAuthenticated()) {
           setAuthed(true);
         } else {
-          setAuthSuccess('Регистрация прошла успешно! Теперь войдите в аккаунт.');
+          setAuthSuccess('Registration completed, now sign in');
           setIsRegistering(false);
           setFormData({ email: formData.email, username: '', password: '' });
         }
@@ -49,7 +49,7 @@ const App = () => {
         setAuthed(true);
       }
     } catch (err) {
-      setAuthError(err.message || 'Произошла ошибка');
+      setAuthError(err.message || 'Error occured');
     }
   };
 
@@ -68,11 +68,11 @@ const App = () => {
     return (
       <div className="auth-container">
         <div className="auth-card">
-          <h2>🎵 {isRegistering ? 'Регистрация в Angles' : 'Вход в Angles'}</h2>
+          <h2>🎵 {isRegistering ? 'Registration' : 'Login'}</h2>
           <p className="subheading">
             {isRegistering 
-              ? 'Создайте аккаунт для доступа к библиотеке' 
-              : 'Авторизуйтесь для доступа к библиотеке'}
+              ? 'Create an account' 
+              : 'Login'}
           </p>
           
           {authError && <div className="auth-error">{authError}</div>}
@@ -92,7 +92,7 @@ const App = () => {
               <input
                 type="text"
                 name="username"
-                placeholder="Имя пользователя"
+                placeholder="Username"
                 value={formData.username}
                 onChange={handleChange}
                 required
@@ -102,30 +102,30 @@ const App = () => {
             <input
               type="password"
               name="password"
-              placeholder="Пароль"
+              placeholder="Password"
               value={formData.password}
               onChange={handleChange}
               required
             />
 
             <button type="submit" className="auth-submit-btn">
-              {isRegistering ? 'Зарегистрироваться' : 'Войти'}
+              {isRegistering ? 'Create account' : 'Login'}
             </button>
           </form>
 
           <div className="auth-toggle">
             {isRegistering ? (
               <p>
-                Уже есть аккаунт?{' '}
+                Have account already?{' '}
                 <button type="button" className="toggle-btn" onClick={toggleMode}>
-                  Войти
+                  Login
                 </button>
               </p>
             ) : (
               <p>
-                Ещё нет аккаунта?{' '}
+                Don't have an account yet?{' '}
                 <button type="button" className="toggle-btn" onClick={toggleMode}>
-                  Зарегистрироваться
+                  Sign up
                 </button>
               </p>
             )}
