@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RatingInput from './RatingInput';
 import StarRating from './StarRating';
+import { fetchAlbumRatings } from '../api/ratingApi';
 
 const TrackList = ({ album, onClose }) => {
-  if (!album) return null;
+  const [ratings, setRatings] = useState({ albumRating: null, trackRatings: {} });
 
+  useEffect(() => {
+    if (!album) return;
+    let cancelled = false;
+    fetchAlbumRatings(album.id)
+      .then((data) => { if (!cancelled) setRatings(data); })
+      .catch(() => { if (!cancelled) setRatings({ albumRating: null, trackRatings: {} }); });
+    return () => { cancelled = true; };
+  }, [album?.id]);
+
+  if (!album) return null;
   const { id: albumId, albumName, artist, tracks } = album;
 
   return (
@@ -14,14 +25,16 @@ const TrackList = ({ album, onClose }) => {
           <h2>{albumName}</h2>
           <p className="subheading">Tracks by {artist}</p>
         </div>
-        <button className="close-btn" onClick={onClose} aria-label="Close track list">
-          &times;
-        </button>
+        <button className="close-btn" onClick={onClose} aria-label="Close track list">&times;</button>
       </div>
 
       <div className="album-rating-section">
         <h4>Rate this album</h4>
-        <RatingInput albumId={albumId} />
+        <RatingInput
+          albumId={albumId}
+          initialRate={ratings.albumRating?.rate || 0}
+          initialComment={ratings.albumRating?.comment || ''}
+        />
       </div>
 
       {!tracks || tracks.length === 0 ? (
@@ -30,14 +43,7 @@ const TrackList = ({ album, onClose }) => {
         <div className="table-responsive">
           <table className="track-table">
             <thead>
-              <tr>
-                <th>#</th>
-                <th>Track Name</th>
-                <th>Genre</th>
-                <th>Duration</th>
-                <th>Rating</th>
-                <th>Your Rating</th>
-              </tr>
+              <tr><th>#</th><th>Track Name</th><th>Genre</th><th>Duration</th><th>Rating</th><th>Your Rating</th></tr>
             </thead>
             <tbody>
               {tracks.map((track, index) => (
@@ -47,7 +53,9 @@ const TrackList = ({ album, onClose }) => {
                   <td><span className="badge">{track.genre}</span></td>
                   <td>{track.duration}</td>
                   <td>★ {track.rate}</td>
-                  <td><StarRating trackId={track.id} /></td>
+                  <td>
+                    <StarRating trackId={track.id} initialRate={ratings.trackRatings[track.id]?.rate || 0} />
+                  </td>
                 </tr>
               ))}
             </tbody>

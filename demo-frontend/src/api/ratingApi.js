@@ -26,3 +26,12 @@ export const submitRating = async ({ albumId, trackId, rate, comment }) => {
   }
   return await response.json();
 };
+export const fetchAlbumRatings = async (albumId) => {
+  const response = await fetch(`${BASE_URL}/ratings/album/${albumId}`, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ratings (Status: ${response.status})`);
+  }
+  return await response.json();
+};

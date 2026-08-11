@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { submitRating } from '../api/ratingApi';
 import HalfStarRating from './HalfStarRating';
 
@@ -7,6 +7,8 @@ const RatingInput = ({ albumId, trackId, initialRate = 0, initialComment = '', o
   const [comment, setComment] = useState(initialComment);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  useEffect(() => { setRate(initialRate); }, [initialRate]);
+  useEffect(() => { setComment(initialComment); }, [initialComment]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
