@@ -1,6 +1,7 @@
 package com.angles.album;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Page;
@@ -24,5 +25,9 @@ public class AlbumController {
     @GetMapping("/search")
     public Page<Album> search(@RequestParam String query,Pageable pageable){
         return service.search(query,pageable);
+    }
+    @GetMapping("/{id}")
+    public Album getAlbum(@PathVariable int id) {
+        return service.findById(id);
     }
 }
