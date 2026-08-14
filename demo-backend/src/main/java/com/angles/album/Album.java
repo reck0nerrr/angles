@@ -42,7 +42,7 @@ public class Album {
     public String getArtist(){
         return artist;
     }
-    public LocalDate getDate(){
+    public LocalDate getReleaseDate(){
         return date;
     }
     public String getGenre(){

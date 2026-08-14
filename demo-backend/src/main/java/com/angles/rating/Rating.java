@@ -1,6 +1,10 @@
 package com.angles.rating;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import com.angles.album.Album;
 import com.angles.track.Track;
@@ -43,10 +47,11 @@ public class Rating {
     private int rate;
     private String comment;
     @Column(name = "created_at", insertable = false, updatable = false)
-    private Instant createdAt;
+    @Generated(event = EventType.INSERT)
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     
     public int getId() { return id; }
     public User getUser() { return user; }
@@ -59,8 +64,8 @@ public class Rating {
     public void setRate(int rate) { this.rate = rate; }
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment = comment; }
-    public Instant getCreatedAt() { return createdAt; }
-    public Instant getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 
 }

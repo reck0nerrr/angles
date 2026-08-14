@@ -19,15 +19,15 @@ public class AlbumController {
         this.service=service;
     }
     @GetMapping
-    public Page<Album> getAlbums(Pageable pageable){
+    public Page<AlbumResponse> getAlbums(Pageable pageable){
         return service.findAll(pageable);
     }
     @GetMapping("/search")
-    public Page<Album> search(@RequestParam String query,Pageable pageable){
+    public Page<AlbumResponse> search(@RequestParam String query,Pageable pageable){
         return service.search(query,pageable);
     }
     @GetMapping("/{id}")
-    public Album getAlbum(@PathVariable int id) {
+    public AlbumResponse getAlbum(@PathVariable int id) {
         return service.findById(id);
     }
 }

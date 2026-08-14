@@ -1,6 +1,6 @@
 package com.angles.user;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import org.hibernate.annotations.Generated;
@@ -41,9 +41,9 @@ public class User implements UserDetails{
     private String passwordHash;
     @Column(name = "created_at", insertable = false, updatable = false)
     @Generated(event = EventType.INSERT)
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     @Enumerated(EnumType.STRING)
-    private com.angles.user.Role role;
+    private Role role;
 
     @Builder
     public User(
@@ -89,7 +89,7 @@ public class User implements UserDetails{
     public void setPasswordHash(String passwordHash){
         this.passwordHash = passwordHash;
     }
-    public Instant getCreatedAt(){
+    public LocalDateTime getCreatedAt(){
         return createdAt;
     }
     @Override

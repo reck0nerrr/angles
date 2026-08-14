@@ -1,10 +1,10 @@
 package com.angles.user;
-import java.time.Instant;
+import java.time.LocalDateTime;
 public record UserDTO(
     Integer id,
     String email,
     String username,
-    Instant created_at
+    LocalDateTime created_at
 ) {
 
 }

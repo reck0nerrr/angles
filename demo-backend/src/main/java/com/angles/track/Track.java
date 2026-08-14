@@ -14,7 +14,6 @@ public class Track {
     private int id;
     private String trackName;
     private int duration;
-    private int rate;
     private String genre;
 
     @JsonBackReference
@@ -24,11 +23,10 @@ public class Track {
     public Track(){
 
     }
-    public Track(int id, Album album, String trackName, String genre, int duration, int rate){
+    public Track(int id, Album album, String trackName, String genre, int duration){
         this.trackName=trackName;
         this.album=album;
         this.duration=duration;
-        this.rate=rate;
         this.genre=genre;
         this.id=id;
     }
@@ -44,9 +42,6 @@ public class Track {
     public String getGenre(){
         return genre;
     }
-    public int getRate(){
-        return rate;
-    }
     public int getDuration(){
         return duration;
     }
@@ -55,6 +50,6 @@ public class Track {
     }
     @Override
     public String toString(){
-        return id+". "+"track name: "+trackName+", genre: "+genre+", rate: "+rate;
+        return id+". "+"track name: "+trackName+", genre: "+genre;
     }
 }

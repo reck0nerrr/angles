@@ -1,0 +1,1 @@
+ALTER TABLE ratings ADD COLUMN reported BOOLEAN NOT NULL DEFAULT false;

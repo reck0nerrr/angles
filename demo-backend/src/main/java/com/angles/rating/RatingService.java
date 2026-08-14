@@ -1,6 +1,7 @@
 package com.angles.rating;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,7 +31,6 @@ public class RatingService {
         }
         Rating rating;
         if(hasAlbum){
-            System.out.println("albumId = " + request.albumId());
             Album album = albumRepository.findById(request.albumId())
                 .orElseThrow(() -> new IllegalArgumentException("Album not found: " + request.albumId()));
             rating = ratingRepository.findByUser_IdAndAlbum_id(user.getId(), album.getId())
@@ -49,7 +49,7 @@ public class RatingService {
         rating.setUser(user);
         rating.setRate(request.rate());
         rating.setComment(request.comment());
-        rating.setUpdatedAt(Instant.now());
+        rating.setUpdatedAt(LocalDateTime.now());
         return ratingRepository.save(rating);
     }
     public AlbumRatingsResponse getRatingsForAlbum(User user, int albumId){
