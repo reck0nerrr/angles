@@ -49,7 +49,7 @@ public class RatingService {
         rating.setUser(user);
         rating.setRate(request.rate());
         rating.setComment(request.comment());
-        rating.setUpdatedAt(LocalDateTime.now());
+        rating.setUpdatedAt(Instant.now());
         return ratingRepository.save(rating);
     }
     public AlbumRatingsResponse getRatingsForAlbum(User user, int albumId){

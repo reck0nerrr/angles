@@ -2,10 +2,6 @@ package com.angles.track;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.*;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class TrackController {
     private final TrackService service;

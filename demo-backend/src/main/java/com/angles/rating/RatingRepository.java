@@ -12,10 +12,10 @@ public interface RatingRepository extends JpaRepository<Rating, Integer> {
     Optional<Rating> findByUser_IdAndTrackId(int userId, int trackId);
     List<Rating> findByUser_IdAndTrack_IdIn(int userId, List<Integer> trackIds);
     @Query("""
-        SELECT new com.angles.rating.RatingStat(r.track.id, AVG(r.rate), COUNT(r))
+        SELECT new com.angles.rating.RatingStat(r.album.id, AVG(r.rate), COUNT(r))
         FROM Rating r
-        WHERE r.track.id IN :trackIds
-        GROUP BY r.track.id
+        WHERE r.album.id IN :albumIds
+        GROUP BY r.album.id
     """)
     List<RatingStat> findAlbumRatingStats(@Param("albumIds") List<Integer> albumIds);
     @Query("""

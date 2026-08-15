@@ -1,6 +1,6 @@
 package com.angles.rating;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record RatingResponse(
     int id,
@@ -10,8 +10,8 @@ public record RatingResponse(
     Integer trackId,
     int rate,
     String comment,
-    LocalDateTime createdAt,
-    LocalDateTime updatedAt
+    Instant createdAt,
+    Instant updatedAt
 ) {
     public static RatingResponse from(Rating rating){
         return new RatingResponse(

@@ -3,7 +3,7 @@ CREATE TABLE users (
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT now(),
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
     role VARCHAR(20) NOT NULL DEFAULT 'USER',
 
     CONSTRAINT users_role_check
@@ -44,8 +44,8 @@ CREATE TABLE ratings (
     rate INTEGER NOT NULL,
     comment TEXT,
 
-    created_at TIMESTAMP NOT NULL DEFAULT now(),
-    updated_at TIMESTAMP,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+    updated_at TIMESTAMP WITH TIME ZONE
 
     CONSTRAINT ratings_user_id_fkey
         FOREIGN KEY (user_id)

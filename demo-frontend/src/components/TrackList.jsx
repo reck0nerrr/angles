@@ -16,7 +16,7 @@ const TrackList = ({ album, onClose }) => {
   }, [album?.id]);
 
   if (!album) return null;
-  const { id: albumId, albumName, artist, tracks } = album;
+  const { id: albumId, albumName, artist, tracks, averageRating, ratingCount } = album;
 
   return (
     <div className="track-list-container">
@@ -24,6 +24,11 @@ const TrackList = ({ album, onClose }) => {
         <div>
           <h2>{albumName}</h2>
           <p className="subheading">Tracks by {artist}</p>
+          <p className="album-average">
+            {averageRating != null
+              ? `Community average: ★ ${averageRating} (${ratingCount} rating${ratingCount === 1 ? '' : 's'})`
+              : 'No community ratings yet'}
+          </p>
         </div>
         <button className="close-btn" onClick={onClose} aria-label="Close track list">&times;</button>
       </div>
@@ -52,7 +57,11 @@ const TrackList = ({ album, onClose }) => {
                   <td className="track-name">{track.trackName}</td>
                   <td><span className="badge">{track.genre}</span></td>
                   <td>{track.duration}</td>
-                  <td>★ {track.rate}</td>
+                  <td>
+                    {track.averageRating != null
+                      ? `★ ${track.averageRating} (${track.ratingCount})`
+                      : '—'}
+                  </td>
                   <td>
                     <StarRating trackId={track.id} initialRate={ratings.trackRatings[track.id]?.rate || 0} />
                   </td>

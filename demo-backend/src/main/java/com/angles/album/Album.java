@@ -15,22 +15,20 @@ public class Album {
     private int id;
     private String albumName;
     private String artist;
-    private LocalDate date;
+    private LocalDate releaseDate;
     private String genre;
-    private int rate;
     @JsonManagedReference
     @OneToMany(mappedBy = "album")
     private List<Track> tracks;
     public Album() {
         
     }
-    public Album(int id, String albumName,String artist,String genre,LocalDate date,int rate,List<Track> tracks){
+    public Album(int id, String albumName,String artist,String genre,LocalDate releaseDate,List<Track> tracks){
         this.id=id;
         this.albumName=albumName;
         this.artist=artist;
-        this.date=date;
+        this.releaseDate=releaseDate;
         this.genre=genre;
-        this.rate=rate;
         this.tracks=tracks;
     }
     public int getId(){
@@ -43,7 +41,7 @@ public class Album {
         return artist;
     }
     public LocalDate getReleaseDate(){
-        return date;
+        return releaseDate;
     }
     public String getGenre(){
         return genre;
@@ -51,14 +49,11 @@ public class Album {
     public List<Track> getTracks(){
         return tracks;
     }
-    public int getRate(){
-        return rate;
-    }
     public void addTrack(Track track){
         tracks.add(track);
     }
     @Override
     public String toString(){
-        return id+". "+"album name: "+albumName+", artist: "+artist+", genre: "+genre+", release date: "+date+", rate: "+rate+", tracklist: "+tracks;
+        return id+". "+"album name: "+albumName+", artist: "+artist+", genre: "+genre+", release date: "+releaseDate+", tracklist: "+tracks;
     }
 }
