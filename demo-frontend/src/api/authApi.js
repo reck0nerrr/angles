@@ -1,6 +1,5 @@
 const BASE_URL = 'http://localhost:8080/auth';
 
-// Авторизация пользователя
 export const loginUser = async (credentials) => {
   const response = await fetch(`${BASE_URL}/authenticate`, {
     method: 'POST',
@@ -19,7 +18,6 @@ export const loginUser = async (credentials) => {
   return data;
 };
 
-// Регистрация пользователя (JSON payload: { email, username, password })
 export const registerUser = async ({ email, username, password }) => {
   const response = await fetch(`${BASE_URL}/register`, {
     method: 'POST',
@@ -38,8 +36,16 @@ export const registerUser = async ({ email, username, password }) => {
   }
   return data;
 };
-
-// Вспомогательные функции для токена
+export const getUsername = () => {
+  const token = getToken();
+  if (!token) return null;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+    return payload.username || null;
+  } catch {
+    return null;
+  }
+};
 export const getToken = () => localStorage.getItem('token');
 export const removeToken = () => localStorage.removeItem('token');
 export const isAuthenticated = () => !!localStorage.getItem('token');

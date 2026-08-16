@@ -10,6 +10,7 @@ public record AlbumResponse(
     String artist,
     String genre,
     LocalDate releaseDate,
+    String coverUrl,
     Double averageRating,
     long ratingCount,
     List<TrackResponse> tracks

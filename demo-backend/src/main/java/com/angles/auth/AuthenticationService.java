@@ -2,6 +2,9 @@ package com.angles.auth;
 
 import com.angles.user.User;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +32,9 @@ public class AuthenticationService {
             .role(Role.USER)
             .build();
         repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("username", user.getDisplayUsername());
+        var jwtToken = jwtService.generateToken(claims, user);
         return AuthenticationResponce
             .builder()
             .token(jwtToken)
@@ -41,7 +46,9 @@ public class AuthenticationService {
         );
         var user = repository.findByEmail(request.email())
             .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("username", user.getDisplayUsername());
+        var jwtToken = jwtService.generateToken(claims, user);
         return AuthenticationResponce
             .builder()
             .token(jwtToken)

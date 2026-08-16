@@ -5,7 +5,7 @@ import HeroSection from '../components/HeroSection';
 import AlbumList from '../components/AlbumList';
 import TrackList from '../components/TrackList';
 
-const HomePage = ({ onLogout }) => {
+const HomePage = ({ onLogout, username }) => {
   const [albums, setAlbums] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [search, setSearch] = useState('');
@@ -62,11 +62,7 @@ const HomePage = ({ onLogout }) => {
 
   return (
     <div className="home-container">
-      <Navbar 
-        search={search} 
-        onSearchChange={handleSearchChange} 
-        onLogout={onLogout} 
-      />
+      <Navbar search={search} onSearchChange={handleSearchChange} onLogout={onLogout} username={username || 'User'} />
 
       <main className="home-main">
         <HeroSection totalAlbums={totalElements} />

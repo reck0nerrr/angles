@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HomePage from './pages/HomePage';
-import { isAuthenticated, removeToken, loginUser, registerUser } from './api/authApi';
+import { isAuthenticated, removeToken, loginUser, registerUser, getUsername } from './api/authApi';
+
 import './App.css';
 
 const App = () => {
@@ -135,7 +136,7 @@ const App = () => {
     );
   }
 
-  return <HomePage onLogout={handleLogout} />;
+  return <HomePage onLogout={handleLogout} username={getUsername()} />;
 };
 
 export default App;

@@ -3,6 +3,7 @@ import java.util.*;
 import com.angles.track.Track;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -17,6 +18,8 @@ public class Album {
     private String artist;
     private LocalDate releaseDate;
     private String genre;
+    @Column(name = "cover_url")
+    private String coverUrl;
     @JsonManagedReference
     @OneToMany(mappedBy = "album")
     private List<Track> tracks;
@@ -51,6 +54,12 @@ public class Album {
     }
     public void addTrack(Track track){
         tracks.add(track);
+    }
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+    public void setCoverUrl(String coverUrl){
+        this.coverUrl = coverUrl;
     }
     @Override
     public String toString(){

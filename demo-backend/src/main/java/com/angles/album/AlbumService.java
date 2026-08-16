@@ -69,7 +69,7 @@ public class AlbumService {
             .toList();
 
         return new AlbumResponse(
-            album.getId(), album.getAlbumName(), album.getArtist(), album.getGenre(), album.getReleaseDate(),
+            album.getId(), album.getAlbumName(), album.getArtist(), album.getGenre(), album.getReleaseDate(), album.getCoverUrl(),
             round(albumStat != null ? albumStat.average() : null),
             albumStat != null ? albumStat.count() : 0,
             trackResponses
