@@ -45,7 +45,7 @@ CREATE TABLE ratings (
     comment TEXT,
 
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-    updated_at TIMESTAMP WITH TIME ZONE
+    updated_at TIMESTAMP WITH TIME ZONE,
 
     CONSTRAINT ratings_user_id_fkey
         FOREIGN KEY (user_id)
