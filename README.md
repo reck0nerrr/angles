@@ -242,7 +242,7 @@ For production deployment, these settings should be reviewed and replaced with a
 - [x] JWT authentication
 - [x] Ratings for albums and tracks
 - [x] Centralized exception handling
-- [ ] Flyway database migrations
+- [x] Flyway database migrations
 - [ ] Last.fm API integration
 - [ ] Production deployment
 - [ ] More advanced filtering and sorting
