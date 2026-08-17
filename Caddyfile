@@ -1,0 +1,7 @@
+yourdomain.com {
+    reverse_proxy
+}
+
+api.yourdomain.com {
+    reverse_proxy
+}
