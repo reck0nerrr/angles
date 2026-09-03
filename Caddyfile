@@ -1,7 +1,7 @@
-yourdomain.com {
-    reverse_proxy
+:80 {
+    reverse_proxy frontend:80
 }
 
-api.yourdomain.com {
-    reverse_proxy
+:8081 {
+    reverse_proxy backend:8080
 }
