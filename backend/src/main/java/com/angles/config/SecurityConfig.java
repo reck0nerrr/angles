@@ -59,7 +59,7 @@ public CorsConfigurationSource corsConfigurationSource() {
             .cors(cors -> {})        
             .csrf((csrf) -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                                            .requestMatchers("/auth/**")
+                                            .requestMatchers("/auth/**", "/error")
                                             .permitAll()
                                             .anyRequest()
                                             .authenticated()

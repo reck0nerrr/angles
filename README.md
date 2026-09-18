@@ -1,8 +1,24 @@
 # Angles
 
 A full-stack music library inspired by [RateYourMusic](https://rateyourmusic.com/). The project combines a React frontend with a Spring Boot REST API, PostgreSQL persistence, JWT authentication, validation, pagination, search, ratings, and centralized error handling.
+## Screenshots
+### User side 
 
+<<<<<<< HEAD
 > Current status: Paused. Deployment is planned; external music metadata integration is also planned.
+=======
+![Home](screenshots/main_page.png)
+
+![Catalog](screenshots/catalog.png) 
+
+![Rating](screenshots/rate.png) 
+
+![Tracks](screenshots/tracks.png)
+
+![Authentication](screenshots/auth.png) 
+
+![Query](screenshots/query.png)
+>>>>>>> 5f11ca5 (add screenshots)
 
 ## Features
 
